@@ -9,7 +9,8 @@ filip.piwowarczyk1997@gmail.com
 ## Cool one
 .play ping-pong.go /START OMIT/,/END OMIT/
 
-
+## Test
+.play some-file.go
 ## Plan
 
 Plan: 
@@ -19,6 +20,7 @@ Plan:
   b. goroutine 
   c. select statement 
     I. Example with concurrent program that is hard to controll and refactor it to 
+  d. sync package
 3. Pokazanie dobrych przykładów kodu z użyciem tych rzeczy 
   a. Generator 
   b. Latch 
@@ -82,15 +84,7 @@ for n:= limit; n>0;n-- {
  
 
 ``` 
+
 ## This is slide with markdown support
 
-Here is some simple text
-
-Here is list:
-- a
-- b 
-- c 
-
-[] box 
-
-[ x ] box with x 
+.play concurrent-promes.go /START OMIT/,/END OMIT/
