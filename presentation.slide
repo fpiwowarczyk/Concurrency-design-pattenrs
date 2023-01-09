@@ -1,16 +1,65 @@
 # Concurrency Design Patterns in GO
 
-
 Filip Piwowarczyk
 filip.piwowarczyk1997@gmail.com
 @FilipPiwowarcz3
 
+## Agenda 
 
-## Cool one
+1. What is special in go concurrency design 
+2. Basic structures 
+3. Concurrency design patterns 
+4. Fun examples 
+5. QnA
+
+
+## Communicating sequential processes(CSP)
+The most important thing in here is that we don't have shared states and synchronize actions by communicating data. 
+I dont know what to say in here 
+https://levelup.gitconnected.com/communicating-sequential-processes-csp-for-go-developer-in-a-nutshell-866795eb879d
+
+## Most importnant concepts 
+
+1. Goroutines 
+2. Channels
+3. Select statement 
+4. Sync package - I guess wont red
+
+## Goroutines
+
+"A gouroutine is a lightweight thread managed by the Go runtime"
+: Core concept of concurrency in go
+: Managed by Go runtime 
+: Should be called when needed, don't try to schedule them by yourself 
+.play basic-goroutines.go /START OMIT/,/END OMIT/
+
+: You can see here that as you overcome number of cores 
+: scheduling becomes random depending which core will be free
+
+## Channels 
+
+Channels allows to send and receive values. Beside that it allows to synchronize goroutines.
+.image
+.image  images/channel.png 400 600
+: Allows synchronization between goroutines
+: Closing sends zero value of type of channel 
+: Can be buffered
+: TODO Add other info about channels
+## Channels 
+: It would be great to have better example
+.play channels-basic.go /START OMIT/,/END OMIT/
+
+## Select 
+Select statement lets gouroutine wait for multiple actions to happend and respond with siutable actions.
+
+.play select-basic.go /START OMIT/,/END OMIT/
+
+## Ping-pong example
 .play ping-pong.go /START OMIT/,/END OMIT/
 
-## Test
-.play some-file.go
+
+## Patterns B| 
+: PPL know how it works but don't know how to use it 
 ## Plan
 
 Plan: 
@@ -84,6 +133,11 @@ for n:= limit; n>0;n-- {
  
 
 ``` 
+
+
+## Materials used to create these talk 
+
+[CSP paper](https://dl.acm.org/doi/10.1145/359576.359585)
 
 ## This is slide with markdown support
 
