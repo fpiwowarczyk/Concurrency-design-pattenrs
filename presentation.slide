@@ -14,9 +14,11 @@ filip.piwowarczyk1997@gmail.com
 
 
 ## Communicating sequential processes(CSP)
-The most important thing in here is that we don't have shared states and synchronize actions by communicating data. 
-I dont know what to say in here 
-https://levelup.gitconnected.com/communicating-sequential-processes-csp-for-go-developer-in-a-nutshell-866795eb879d
+CSP is all about synchronization of processes. Multiple processes are able to synchronize by communicating their sources and destinations. 
+: Main idea is that we independed processes can communicate using channels
+: Another thing is guarded command that blocks execution until program given statement is true. 
+: In golang we can hold process until it receives data through channel, that means we can synchronize two processes by sending data between them. 
+.image images/communication.jpg
 
 ## Most importnant concepts 
 
@@ -58,8 +60,30 @@ Select statement lets gouroutine wait for multiple actions to happend and respon
 .play ping-pong.go /START OMIT/,/END OMIT/
 
 
-## Patterns B| 
-: PPL know how it works but don't know how to use it 
+## Patterns
+Did you ever had problem with using solution that thereotically you know already enough?
+: I have learned things that didn't give me anything before I have to use it and see that 
+: usage differs from theory. Thats why I want to present to you these patterns 
+.image images/thinker.png 400 300
+## Generator 
+
+.play generator.go
+
+## Pipeline 
+
+.play pipeline.go 
+## FanIn
+
+.play fanin.go
+## FanOut 
+
+.play fanout.go
+## Timeout 
+
+.play timeout.go
+
+
+
 ## Plan
 
 Plan: 
@@ -138,6 +162,7 @@ for n:= limit; n>0;n-- {
 ## Materials used to create these talk 
 
 [CSP paper](https://dl.acm.org/doi/10.1145/359576.359585)
+[CSP blog post](https://levelup.gitconnected.com/communicating-sequential-processes-csp-for-go-developer-in-a-nutshell-866795eb879d)
 
 ## This is slide with markdown support
 
