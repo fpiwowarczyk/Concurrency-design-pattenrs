@@ -124,25 +124,9 @@ Did you ever had problem with using solution that thereotically you know already
 
 .play throttle.go  /START OMIT/,/END OMIT/
 
+## Possible Timeout 
 
-
-
-## Plan
-
-Plan: 
-1. Przypomnienie czym jest concurrency w go (Szybko była o tym już mowa)
-2. Zwrócenie uwagi na ważne elementy concurrency patterns in go 
-  a. channel 
-  b. goroutine 
-  c. select statement 
-    I. Example with concurrent program that is hard to controll and refactor it to 
-  d. sync package
-3. Pokazanie dobrych przykładów kodu z użyciem tych rzeczy 
-  a. Generator 
-  b. Latch 
-  c. FanIn FanOut
-  d. Pipeline 
-  e. Timeout 
+## Possible Retry 
 
 
 ##  Catch phrases
@@ -152,61 +136,12 @@ Share by communicating
 Condition variables relay on communicationb by sharing memmory 
 Go share by communicating 
 When you want to communicate by shering. Communicate thing you want to share, not just information about change in state 
-## Asynchronous API 
 
-## Fan-out ? 
-This one if wrong, it is better to start goroutine when there is work
-``` go 
-work :- make(chan Task)
-for n := limit; n>0;n-- {
-   go func() {
-      for task := range wokr {
-         perform(task)
-      }
-   }()
-
-   for _, task := range hugeSlice {
-      work <- task
-   }
-}
-```
-Good one
-``` go 
-var wg sync.WaitGroup 
-for _ , task := ragne hugeSlice {
-  wg.Add(1)
-  go func(task Task) {
-    perform(task)
-    wg.Done()
-  }(task)
-}
-
-wg.Wait()
-```
-## Limit for fan-out 
-``` go
-sem := make(chan token, limit)
-for _, task := range hugeSlice {
-   sem <- token{} 
-   go func(task Task) {
-      perform(task)
-      <- sem 
-   }(task)
-}
-
-for n:= limit; n>0;n-- {
-   sem <- token{}
-}
- 
-
-``` 
 
 
 ## Materials used to create these talk 
 
 [CSP paper](https://dl.acm.org/doi/10.1145/359576.359585)
+
 [CSP blog post](https://levelup.gitconnected.com/communicating-sequential-processes-csp-for-go-developer-in-a-nutshell-866795eb879d)
 
-## This is slide with markdown support
-
-.play concurrent-promes.go /START OMIT/,/END OMIT/
