@@ -18,9 +18,9 @@ func main() {
 
 	c := make(chan int)
 	for i := 0; i < 3; i++ {
-		go work(i, rand.Intn(5), c)
+		go work(i, rand.Intn(5), c) // HL
 	}
-	w1, w2, w3 := <-c, <-c, <-c
+	w1, w2, w3 := <-c, <-c, <-c // HL
 
 	fmt.Println(w1, w2, w3)
 }

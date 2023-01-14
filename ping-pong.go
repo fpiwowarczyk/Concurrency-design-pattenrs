@@ -7,25 +7,25 @@ import (
 
 // START OMIT
 
-type Ball struct{ hits int }
+type Ball struct{ hits int } // HL
 
 func main() {
 	table := make(chan *Ball)
-	go player("ping", table)
-	go player("pong", table)
+	go player("ping", table) // HL
+	go player("pong", table) // HL
 
-	table <- new(Ball)
+	table <- new(Ball) // HL
 	time.Sleep(time.Second)
-	<-table
+	<-table // HL
 }
 
 func player(name string, table chan *Ball) {
 	for {
-		ball := <-table
+		ball := <-table // HL
 		ball.hits++
 		fmt.Println(name, ball.hits)
 		time.Sleep(100 * time.Millisecond)
-		table <- ball
+		table <- ball // HL
 	}
 }
 

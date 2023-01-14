@@ -18,11 +18,11 @@ func doSlowRequest(output chan<- string) {
 }
 func main() {
 	c := make(chan string)
-	go doSlowRequest(c)
+	go doSlowRequest(c) // HL
 	select {
-	case message := <-c:
-		fmt.Printf("Received message %s!\n", message)
-	case <-time.After(time.Millisecond * 500):
+	case message := <-c: // HL
+		fmt.Printf("Received message: %s!\n", message)
+	case <-time.After(time.Millisecond * 500): // HL
 		fmt.Println("TIMEOUT")
 	}
 }

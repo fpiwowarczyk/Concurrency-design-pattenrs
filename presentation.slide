@@ -13,12 +13,28 @@ filip.piwowarczyk1997@gmail.com
 5. QnA
 
 
-## Communicating sequential processes(CSP)
-CSP is all about synchronization of processes. Multiple processes are able to synchronize by communicating their sources and destinations. 
+## CSP like concurrency 
+Golang concurrency mechanisms are based on Communicating Sequential Processes(CSP) language. 
+: CSP - language described in paper by Tony Hoare in 1978
 : Main idea is that we independed processes can communicate using channels
 : Another thing is guarded command that blocks execution until program given statement is true. 
 : In golang we can hold process until it receives data through channel, that means we can synchronize two processes by sending data between them. 
 .image images/communication.jpg
+
+## CSP like concurrency
+
+Most of languages offers scharing memmory using:
+- Locks 
+- Mutexes
+: You may forget to lock/unlock shared memmory 
+: Intruduce race conditions, 
+: Deadlock
+: Concurrent modifications
+
+Go offers writing well structured, synchronized programs with:
+- goroutines 
+- channels
+: It allows you to write complex synchronization problems in elegant way
 
 ## Most importnant concepts 
 
@@ -33,6 +49,7 @@ CSP is all about synchronization of processes. Multiple processes are able to sy
 : Core concept of concurrency in go
 : Managed by Go runtime 
 : Should be called when needed, don't try to schedule them by yourself 
+
 .play basic-goroutines.go /START OMIT/,/END OMIT/
 
 : You can see here that as you overcome number of cores 
@@ -47,6 +64,7 @@ Channels allows to send and receive values. Beside that it allows to synchronize
 : Closing sends zero value of type of channel 
 : Can be buffered
 : TODO Add other info about channels
+
 ## Channels 
 : It would be great to have better example
 .play channels-basic.go /START OMIT/,/END OMIT/
@@ -60,6 +78,7 @@ Select statement lets gouroutine wait for multiple actions to happend and respon
 .play ping-pong.go /START OMIT/,/END OMIT/
 
 
+
 ## Patterns
 Did you ever had problem with using solution that thereotically you know already enough?
 : I have learned things that didn't give me anything before I have to use it and see that 
@@ -67,20 +86,44 @@ Did you ever had problem with using solution that thereotically you know already
 .image images/thinker.png 400 300
 ## Generator 
 
-.play generator.go
+.play generator.go /START OMIT/,/END OMIT/
 
-## Pipeline 
+## Generator 
 
-.play pipeline.go 
+.play generator-fib.go /START OMIT/,/END OMIT/
+
+
 ## FanIn
 
-.play fanin.go
+.code fan-in.go /^func Merge/,/^}/
+
+## FanIn
+
+.play fan-in.go /START OMIT/,/END OMIT/
+
+.image images/fan-in.jpg
+
 ## FanOut 
 
-.play fanout.go
-## Timeout 
+.code fanout.go /^func Split/,/^}/
 
-.play timeout.go
+## FanOut
+.play fanout.go /START OMIT/,/END OMIT/
+
+.image images/fanout.jpeg 180 400 
+
+## Circuit Breaker 
+
+.play circuit-breaker.go  /START OMIT/,/END OMIT/
+
+## Debounce 
+
+.play debounce.go  /START OMIT/,/END OMIT/
+
+## Throttle
+
+.play throttle.go  /START OMIT/,/END OMIT/
+
 
 
 

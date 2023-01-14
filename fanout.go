@@ -6,33 +6,52 @@ import (
 	"time"
 )
 
+func Split(source <-chan string, n int) []<-chan string {
+	dests := make([]<-chan string, 0)
+
+	for i := 0; i <= n; i++ {
+		ch := make(chan string)
+		dests = append(dests, ch)
+
+		go func() {
+			defer close(ch)
+
+			for val := range source {
+				ch <- val
+			}
+		}()
+	}
+	return dests
+}
+
+// START OMIT
 func main() {
+	source := splitMessage("Secret message goes in here")
+	dests := Split(source, 5)
 	var wg sync.WaitGroup
-	wg.Add(36)
-	go pool(&wg, 36)
+	wg.Add(len(dests))
+
+	for i, ch := range dests {
+		go func(i int, d <-chan string) {
+			defer wg.Done()
+			for val := range d {
+				fmt.Printf("#%d got %s\n", i, val)
+			}
+		}(i, ch)
+	}
 	wg.Wait()
 }
 
-func pool(wg *sync.WaitGroup, n int) {
-	tasks := make(chan int)
-	for i := 0; i < n; i++ {
-		go worker(tasks, wg)
-	}
-	for i := 0; i < 50; i++ {
-		tasks <- i
-	}
-	close(tasks)
-}
+// END OMIT
 
-func worker(tasks <-chan int, wg *sync.WaitGroup) {
-	defer wg.Done()
-	for {
-		task, ok := <-tasks
-		if !ok {
-			return
+func splitMessage(msg string) <-chan string {
+	c := make(chan string)
+	go func() {
+		defer close(c)
+		for _, val := range msg {
+			c <- string(val)
+			time.Sleep(time.Millisecond * 100)
 		}
-		d := time.Duration(task) * time.Millisecond
-		time.Sleep(d)
-		fmt.Println("processing task", task)
-	}
+	}()
+	return c
 }

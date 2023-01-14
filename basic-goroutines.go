@@ -9,7 +9,7 @@ import (
 func main() {
 
 	for i := 0; i <= 20; i++ {
-		go printNumber(i)
+		go printNumber(i) // HL
 	}
 
 	time.Sleep(time.Second)
