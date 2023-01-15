@@ -8,10 +8,13 @@ filip.piwowarczyk1997@gmail.com
 
 1. What is special in go concurrency design 
 2. Basic structures 
-3. Concurrency design patterns 
-4. Fun examples 
+3. Concurrency Patterns 
+4. Stability Patterns 
 5. QnA
-
+: Start with basic understanding of conccurency in go and what is special about it 
+: Conccurency patterns that can be used for computing and in basic program flow. 
+: Stability patterns are more related to distributed services. I think distributed services are closely related with concurrent actions therefore these examples 
+: should be nice to know for daily work of most of the devs. 
 
 ## CSP like concurrency 
 Golang concurrency mechanisms are based on Communicating Sequential Processes(CSP) language. 
@@ -36,13 +39,22 @@ Go offers writing well structured, synchronized programs with:
 - channels
 : It allows you to write complex synchronization problems in elegant way
 
+<div style="text-align: right; translate: -100px -100px"> 
+
+.image images/drage-meme.jpg 300 400 
+
+</div>
+
 ## Most importnant concepts 
 
 1. Goroutines 
 2. Channels
 3. Select statement 
-4. Sync package - I guess wont red
-
+4. Sync package
+: 1. Basic structure to run concurrently parts of program 
+: 2. Syncing 
+: 3. Controling flow of program
+: 4. A lot of useful wrappers/ functions. I won't cover that in defail in here but they are preety stright forward
 ## Goroutines
 
 "A gouroutine is a lightweight thread managed by the Go runtime"
@@ -58,7 +70,7 @@ Go offers writing well structured, synchronized programs with:
 ## Channels 
 
 Channels allows to send and receive values. Beside that it allows to synchronize goroutines.
-.image
+
 .image  images/channel.png 400 600
 : Allows synchronization between goroutines
 : Closing sends zero value of type of channel 
@@ -84,10 +96,13 @@ Did you ever had problem with using solution that thereotically you know already
 : I have learned things that didn't give me anything before I have to use it and see that 
 : usage differs from theory. Thats why I want to present to you these patterns 
 .image images/thinker.png 400 300
+
+## Concurrency Patterns
 ## Generator 
 
 .play generator.go /START OMIT/,/END OMIT/
-
+: Allows to generate data 
+: It can work as somekind of service that will generate data for further part of app
 ## Generator 
 
 .play generator-fib.go /START OMIT/,/END OMIT/
@@ -96,7 +111,7 @@ Did you ever had problem with using solution that thereotically you know already
 ## FanIn
 
 .code fan-in.go /^func Merge/,/^}/
-
+: Allows to merge few data sources and work with them as one data stream
 ## FanIn
 
 .play fan-in.go /START OMIT/,/END OMIT/
@@ -104,7 +119,7 @@ Did you ever had problem with using solution that thereotically you know already
 .image images/fan-in.jpg
 
 ## FanOut 
-
+: Allows to split one data stream into few different and process them independedtly 
 .code fanout.go /^func Split/,/^}/
 
 ## FanOut
@@ -112,22 +127,24 @@ Did you ever had problem with using solution that thereotically you know already
 
 .image images/fanout.jpeg 180 400 
 
-## Circuit Breaker 
+## Future 
+.code future.go /type Future/,/^}/
+.code future.go /^type InnerFuture/,/^}/
 
-.play circuit-breaker.go  /START OMIT/,/END OMIT/
+.code future.go /^func \(/,/^}/
+## Future 
+.play future.go /START OMIT/,/END OMIT/
+
+## Control Patterns
+## Debounce 
+: Debounce limits frequency of a function invocations. You can implement function that performs only first or last call. 
+.play debounce-last.go  /START OMIT/,/END OMIT/
 
 ## Debounce 
+.play debounce-first.go /START OMIT/,/END OMIT/
 
-.play debounce.go  /START OMIT/,/END OMIT/
-
-## Throttle
-
-.play throttle.go  /START OMIT/,/END OMIT/
-
-## Possible Timeout 
-
-## Possible Retry 
-
+## Retry 
+.play retry.go /START OMIT/,/END OMIT/
 
 ##  Catch phrases
 

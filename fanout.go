@@ -7,27 +7,27 @@ import (
 )
 
 func Split(source <-chan string, n int) []<-chan string {
-	dests := make([]<-chan string, 0)
+	dests := make([]<-chan string, 0) // HL
 
 	for i := 0; i <= n; i++ {
-		ch := make(chan string)
-		dests = append(dests, ch)
+		ch := make(chan string)   // HL
+		dests = append(dests, ch) // HL
 
 		go func() {
 			defer close(ch)
 
 			for val := range source {
-				ch <- val
+				ch <- val // HL
 			}
 		}()
 	}
-	return dests
+	return dests // HL
 }
 
 // START OMIT
 func main() {
-	source := splitMessage("Secret message goes in here")
-	dests := Split(source, 5)
+	source := splitMessage("Secret message goes in here") // HL
+	dests := Split(source, 5)                             // HL
 	var wg sync.WaitGroup
 	wg.Add(len(dests))
 
@@ -35,7 +35,7 @@ func main() {
 		go func(i int, d <-chan string) {
 			defer wg.Done()
 			for val := range d {
-				fmt.Printf("#%d got %s\n", i, val)
+				fmt.Printf("#%d got %s\n", i, val) // HL
 			}
 		}(i, ch)
 	}

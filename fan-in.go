@@ -34,7 +34,7 @@ func main() {
 	}
 	dest := Merge(sources...) // HL
 	for d := range dest {
-		fmt.Println(d)
+		fmt.Print(d, " ")
 	}
 }
 
