@@ -14,10 +14,10 @@ func Retry(toRetry ToRetry, retries int, delay time.Duration) ToRetry {
 	return func(ctx context.Context) (string, error) {
 		for r := 0; ; r++ {
 			response, err := toRetry(ctx)   // HL
-			if err == nil || r >= retries { //HL
+			if err == nil || r >= retries { // HL
 				return response, err
 			}
-			fmt.Printf("Attempt %d failed; retrying in %v\n", r+1, delay) // HL
+			fmt.Printf("Attempt %d failed; retrying in %v\n", r+1, delay)
 			select {
 			case <-time.After(delay):
 			case <-ctx.Done():

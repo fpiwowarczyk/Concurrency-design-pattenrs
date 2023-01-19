@@ -14,11 +14,11 @@ func init() {
 func doSlowRequest(output chan<- string) {
 	wait := rand.Intn(1000)
 	time.Sleep(time.Millisecond * time.Duration(wait))
-	output <- "Super secret message"
+	output <- "Super secret message" // HL
 }
 func main() {
-	c := make(chan string)
-	go doSlowRequest(c) // HL
+	c := make(chan string) // HL
+	go doSlowRequest(c)    // HL
 	select {
 	case message := <-c: // HL
 		fmt.Printf("Received message: %s!\n", message)

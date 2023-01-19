@@ -44,10 +44,12 @@ func SlowFunction(ctx context.Context) Future {
 }
 
 func main() {
+
 	ctx := context.Background()
 	future := SlowFunction(ctx)
 	res := future.GetResult() // HL
-	fmt.Println(res)          // HL
+
+	fmt.Println(res) // HL
 }
 
 // END OMIT

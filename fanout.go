@@ -7,19 +7,17 @@ import (
 )
 
 func Split(source <-chan string, n int) []<-chan string {
-	dests := make([]<-chan string, 0) // HL
+	dests := make([]<-chan string, 0)
 
-	for i := 0; i <= n; i++ {
-		ch := make(chan string)   // HL
-		dests = append(dests, ch) // HL
-
-		go func() {
-			defer close(ch)
-
-			for val := range source {
+	for i := 0; i <= n; i++ { // HL
+		ch := make(chan string)
+		dests = append(dests, ch)
+		go func() { // HL
+			defer close(ch)           // HL
+			for val := range source { // HL
 				ch <- val // HL
-			}
-		}()
+			} // HL
+		}() // HL
 	}
 	return dests // HL
 }

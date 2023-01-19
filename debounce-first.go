@@ -14,12 +14,12 @@ func debounceFirst(interval time.Duration, input chan string, callback func(arg 
 		select {
 		case item = <-input:
 			if !called {
-				callback(item)        // HL
-				called = true         // HL
-				timer.Reset(interval) // HL
+				callback(item) // HL
+				called = true  // HL
 			}
+			timer.Reset(interval) // HL
 		case <-timer.C:
-			called = false //HL
+			called = false // HL
 		}
 	}
 }

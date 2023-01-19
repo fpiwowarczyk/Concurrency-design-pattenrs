@@ -1,9 +1,22 @@
 # Concurrency Design Patterns in GO
 
 Filip Piwowarczyk
+Software engineer at Nobl9 
 filip.piwowarczyk1997@gmail.com
 @FilipPiwowarcz3
+https://github.com/fpiwowarczyk/Concurrency-design-pattenrs
 
+## About
+
+You need
+
+1. Basic knowledge of golang syntax 
+2. Some knowledge about concurrency in different languages 
+
+You will learn
+
+1. How to use concurrency in go 
+2. Basic problems during creating software 
 ## Agenda 
 
 1. What is special in go concurrency design 
@@ -11,17 +24,10 @@ filip.piwowarczyk1997@gmail.com
 3. Concurrency Patterns 
 4. Stability Patterns 
 5. QnA
-: Start with basic understanding of conccurency in go and what is special about it 
-: Conccurency patterns that can be used for computing and in basic program flow. 
-: Stability patterns are more related to distributed services. I think distributed services are closely related with concurrent actions therefore these examples 
-: should be nice to know for daily work of most of the devs. 
 
 ## CSP like concurrency 
-Golang concurrency mechanisms are based on Communicating Sequential Processes(CSP) language. 
-: CSP - language described in paper by Tony Hoare in 1978
-: Main idea is that we independed processes can communicate using channels
-: Another thing is guarded command that blocks execution until program given statement is true. 
-: In golang we can hold process until it receives data through channel, that means we can synchronize two processes by sending data between them. 
+Golang concurrency mechanisms are based on Communicating Sequential Processes(CSP) language.
+
 .image images/communication.jpg
 
 ## CSP like concurrency
@@ -29,15 +35,10 @@ Golang concurrency mechanisms are based on Communicating Sequential Processes(CS
 Most of languages offers scharing memmory using:
 - Locks 
 - Mutexes
-: You may forget to lock/unlock shared memmory 
-: Intruduce race conditions, 
-: Deadlock
-: Concurrent modifications
 
 Go offers writing well structured, synchronized programs with:
 - goroutines 
 - channels
-: It allows you to write complex synchronization problems in elegant way
 
 <div style="text-align: right; translate: -100px -100px"> 
 
@@ -51,6 +52,8 @@ Go offers writing well structured, synchronized programs with:
 2. Channels
 3. Select statement 
 4. Sync package
+
+
 : 1. Basic structure to run concurrently parts of program 
 : 2. Syncing 
 : 3. Controling flow of program
@@ -58,31 +61,22 @@ Go offers writing well structured, synchronized programs with:
 ## Goroutines
 
 "A gouroutine is a lightweight thread managed by the Go runtime"
-: Core concept of concurrency in go
-: Managed by Go runtime 
-: Should be called when needed, don't try to schedule them by yourself 
 
 .play basic-goroutines.go /START OMIT/,/END OMIT/
 
-: You can see here that as you overcome number of cores 
-: scheduling becomes random depending which core will be free
 
 ## Channels 
 
 Channels allows to send and receive values. Beside that it allows to synchronize goroutines.
 
 .image  images/channel.png 400 600
-: Allows synchronization between goroutines
-: Closing sends zero value of type of channel 
-: Can be buffered
-: TODO Add other info about channels
 
 ## Channels 
 : It would be great to have better example
 .play channels-basic.go /START OMIT/,/END OMIT/
 
 ## Select 
-Select statement lets gouroutine wait for multiple actions to happend and respond with siutable actions.
+Select statement let's gouroutine wait for multiple actions to happend and respond with siutable actions.
 
 .play select-basic.go /START OMIT/,/END OMIT/
 
@@ -93,16 +87,15 @@ Select statement lets gouroutine wait for multiple actions to happend and respon
 
 ## Patterns
 Did you ever had problem with using solution that thereotically you know already enough?
-: I have learned things that didn't give me anything before I have to use it and see that 
-: usage differs from theory. Thats why I want to present to you these patterns 
+
 .image images/thinker.png 400 300
 
 ## Concurrency Patterns
 ## Generator 
 
 .play generator.go /START OMIT/,/END OMIT/
-: Allows to generate data 
-: It can work as somekind of service that will generate data for further part of app
+
+
 ## Generator 
 
 .play generator-fib.go /START OMIT/,/END OMIT/
@@ -111,7 +104,6 @@ Did you ever had problem with using solution that thereotically you know already
 ## FanIn
 
 .code fan-in.go /^func Merge/,/^}/
-: Allows to merge few data sources and work with them as one data stream
 ## FanIn
 
 .play fan-in.go /START OMIT/,/END OMIT/
@@ -119,7 +111,6 @@ Did you ever had problem with using solution that thereotically you know already
 .image images/fan-in.jpg
 
 ## FanOut 
-: Allows to split one data stream into few different and process them independedtly 
 .code fanout.go /^func Split/,/^}/
 
 ## FanOut
@@ -132,12 +123,13 @@ Did you ever had problem with using solution that thereotically you know already
 .code future.go /^type InnerFuture/,/^}/
 
 .code future.go /^func \(/,/^}/
+
 ## Future 
 .play future.go /START OMIT/,/END OMIT/
 
 ## Control Patterns
 ## Debounce 
-: Debounce limits frequency of a function invocations. You can implement function that performs only first or last call. 
+
 .play debounce-last.go  /START OMIT/,/END OMIT/
 
 ## Debounce 
@@ -146,19 +138,26 @@ Did you ever had problem with using solution that thereotically you know already
 ## Retry 
 .play retry.go /START OMIT/,/END OMIT/
 
-##  Catch phrases
-
-Share by communicating 
-
-Condition variables relay on communicationb by sharing memmory 
-Go share by communicating 
-When you want to communicate by shering. Communicate thing you want to share, not just information about change in state 
-
-
-
 ## Materials used to create these talk 
 
 [CSP paper](https://dl.acm.org/doi/10.1145/359576.359585)
 
 [CSP blog post](https://levelup.gitconnected.com/communicating-sequential-processes-csp-for-go-developer-in-a-nutshell-866795eb879d)
+
+[Concurrency is not Parralelism](https://go.dev/blog/waza-talk)
+
+[Advanced Go Concurrency Patterns](https://go.dev/talks/2013/advconc.slide#1)
+
+[Rethinking Classical Concurrency Patterns](https://www.youtube.com/watch?v=5zXAHh5tJqQ&ab_channel=GopherAcademy)
+
+[Pipelines](https://go.dev/blog/pipelines)
+
+[Concurrency timeouts](https://go.dev/blog/concurrency-timeouts)
+
+[Complex Concurrency Patterns](https://www.youtube.com/watch?v=2HOO5gIgyMg&ab_channel=GopherConUK)
+
+[Visualizing Concurrency](https://www.youtube.com/watch?v=KyuFeiG3Y60&ab_channel=GopherAcademy)
+
+[Concurrency Patterns](https://www.youtube.com/watch?v=YEKjSzIwAdA&ab_channel=CodingTech)
+
 

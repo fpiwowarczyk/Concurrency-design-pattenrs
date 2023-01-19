@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"time"
 )
 
@@ -11,14 +10,14 @@ import (
 func work(id, input int, output chan int) {
 	fmt.Printf("Worker with id %d starts work\n", id)
 	time.Sleep(500 * time.Millisecond)
-	output <- input * input
+	output <- input * input // HL
 }
 
 func main() {
 
-	c := make(chan int)
+	c := make(chan int) // HL
 	for i := 0; i < 3; i++ {
-		go work(i, rand.Intn(5), c) // HL
+		go work(i, i+2, c) // HL
 	}
 	w1, w2, w3 := <-c, <-c, <-c // HL
 

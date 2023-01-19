@@ -6,20 +6,20 @@ import (
 	"time"
 )
 
-func Merge(sources ...<-chan int) <-chan int {
+func Merge(sources ...<-chan int) <-chan int { // HL
 	dest := make(chan int)
 	var wg sync.WaitGroup
-	wg.Add(len(sources)) // HL
+	wg.Add(len(sources))
 	for _, ch := range sources {
-		go func(c <-chan int) {
-			defer wg.Done() // HL
-			for n := range c {
+		go func(c <-chan int) { // HL
+			defer wg.Done()    // HL
+			for n := range c { // HL
 				dest <- n // HL
-			}
-		}(ch)
+			} // HL
+		}(ch) // HL
 	}
 	go func() {
-		wg.Wait() // HL
+		wg.Wait()
 		close(dest)
 	}()
 	return dest

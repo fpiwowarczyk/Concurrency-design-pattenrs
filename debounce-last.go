@@ -22,10 +22,11 @@ func debounceLast(interval time.Duration, input chan string, callback func(arg s
 func main() {
 	messagesChan := make(chan string)
 	go debounceLast(time.Second, messagesChan, echoMessage) // HL
-	for true {
+	for {
 		// Will it print "message 1" or "message 2"?
 		messagesChan <- "message 1"
 		messagesChan <- "message 2"
+
 		time.Sleep(time.Second)
 	}
 }
